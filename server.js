@@ -14,12 +14,13 @@ const baseController = require("./controllers/baseController")
 
 //Index route
 app.get("/", function(req, res){
-  res.render("./pages/index", {title: "Home"})
+ res.render("./pages/index", {title: "Home"})
 })
 
 app.get("/", baseController.buildHome)
 
-
+// Inventory routes
+app.use("/inv", inventoryRoute)
 
 /* ***********************
  * View Engine and Templates
