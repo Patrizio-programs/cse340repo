@@ -1,5 +1,9 @@
 const invModel = require("../models/inventory-model")
 const Util = {}
+const express = require('express');
+const router = express.Router();
+const invCont = require("../controllers/invController");
+
 
 /* ************************
  * Constructs the nav HTML unordered list
@@ -28,7 +32,7 @@ module.exports = Util
 
 
 // Route to build inventory by classification view
-router.get("/type/:classificationId", invController.buildByClassificationId);
+router.get("/type/:classificationId", invCont.buildByClassificationId);
 
 module.exports = router;
 
