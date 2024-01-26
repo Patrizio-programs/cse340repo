@@ -28,13 +28,21 @@ Util.getNav = async function (req, res, next) {
   return list
 }
 
-module.exports = Util
+
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
+
+
 
 
 // Route to build inventory by classification view
 router.get("/type/:classificationId", invCont.buildByClassificationId);
 
-module.exports = router;
 
 
 /* **************************************
@@ -69,3 +77,8 @@ Util.buildClassificationGrid = async function(data){
     }
     return grid
   }
+
+
+
+  module.exports = Util
+
