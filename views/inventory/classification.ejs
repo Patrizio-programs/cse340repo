@@ -1,0 +1,18 @@
+<!-- 
+  If a title was passed to this view, use it
+  Otherwise, redirect to the home page
+-->
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+
+
+    <%# messages() %>
+
+    <%- grid %>
+    
+
+    
