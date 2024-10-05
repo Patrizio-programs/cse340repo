@@ -52,6 +52,21 @@ async function getInventoryByClassificationId(classification_id) {
     }
   }
 
+
+  async function getInventoryByClassificationId(classification_id) {
+    try {
+      const data = await pool.query(
+        `SELECT * FROM public.inventory AS i  
+        JOIN public.classification AS c
+        ON i.classification_id = c.classification_id
+        WHERE i.classification_id = $1`,
+        [classification_id]
+      )
+      return data.rows
+    } catch (error) {
+  }
+}
+
   async function buildByClassificationId(req, res, next) {
     const classification_id = req.params.classificationId
     const data = await getInventoryByClassificationId(classification_id)
@@ -64,6 +79,26 @@ async function getInventoryByClassificationId(classification_id) {
     })
   }
 
+
+
+  showDetail = async (req, res) => {
+    try {
+      const id = req.params.id;
+      const vehicle = await Inventory.getInventoryByClassificationId(id);
+      
+      if (!vehicle) {
+        return res.status(404).json({ message: "Vehicle not found" });
+      }
+  
+      // Call the utility function to wrap the vehicle data in HTML
+      const htmlContent = utilities.wrapVehicleData(vehicle);
+  
+      res.send(htmlContent);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    }
+  };
 
   
   module.exports = {getClassifications, getInventoryByClassificationId, buildByClassificationId, invCont}

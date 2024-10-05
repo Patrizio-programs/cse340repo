@@ -60,6 +60,55 @@ Util.buildClassificationGrid = async function(data){
 }
 
 
+exports.wrapVehicleData = function(vehicle) {
+  return `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>${vehicle.make} ${vehicle.model}</title>
+      <style>
+        .container {
+          display: flex;
+          justify-content: space-between;
+          gap: 20px;
+        }
+        @media (max-width: 768px) {
+          .container {
+            flex-direction: column;
+          }
+        }
+        img {
+          width: 50%;
+          max-height: 400px;
+        }
+        .details {
+          text-align: left;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <img src="${vehicle.imageUrl}" alt="${vehicle.make} ${vehicle.model}">
+        <div class="details">
+          <h1>${vehicle.make} ${vehicle.model}</h1>
+          <p>Year: ${vehicle.year}</p>
+          <p>Price: $${vehicle.price.toLocaleString()}</p>
+          <p>Mileage: ${vehicle.mileage.toLocaleString()} miles</p>
+          <p>Description: ${vehicle.description}</p>
+          <p>Features:</p>
+          <ul>
+            ${vehicle.features.map(feature => `<li>${feature}</li>`).join('')}
+          </ul>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+};
+
+
 
 
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)

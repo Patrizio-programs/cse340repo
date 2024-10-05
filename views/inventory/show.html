@@ -1,0 +1,22 @@
+<!-- views/inventory/show.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Detail</title>
+</head>
+<body>
+    <h1>Inventory Detail</h1>
+    <div id="content"></div>
+
+    <script>
+        fetch('/inventory/:id')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('content').innerHTML = data;
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>
