@@ -81,7 +81,7 @@ async function getInventoryByClassificationId(classification_id) {
 
 
 
-  showDetail = async (req, res) => {
+  const showDetail = async (req, res) => {
     try {
       const id = req.params.id;
       const vehicle = await Inventory.getInventoryByClassificationId(id);
@@ -101,4 +101,4 @@ async function getInventoryByClassificationId(classification_id) {
   };
 
   
-  module.exports = {getClassifications, getInventoryByClassificationId, buildByClassificationId, invCont}
+  module.exports = {getClassifications, getInventoryByClassificationId, buildByClassificationId, invCont, showDetail}
